@@ -1,0 +1,4 @@
+采用UrlEncoding.encode(String,en)处理特殊字符的时候
+从页面传递数据的时候，特殊字符对于超链接会自动进行解密
+其他方式需要手动的进行解码，(采用URLDecode(String,en)解码)
+采用JavaScript、get也是自动解码
