@@ -59,8 +59,28 @@
 		}
 		//alert(s);
 		//数据传递到服务器端进行删除
+		/* window.location = "${pageContext.request.contextPath }/Controller?op=deleteMore&ids="
+				+ s; */
+		//数据传递到服务端进行删除
 		window.location = "${pageContext.request.contextPath }/Controller?op=deleteMore&ids="
-				+ s;
+				+ s + "&currentPageIndex=${page.currentPageIndex}"
+	}
+
+	function jump(index) {
+		if ("undefined" == typeof (index)) {
+			//说明是点击的是超链接
+			//拿到文本框中的数据
+			var n = document.getElementById("pageindex").value;
+			//判断是否合法
+			if (isNaN(n)) {
+				alert("必须填写数字");
+				return;
+			}
+			index = n;
+		}
+
+		window.location.href = "${pageContext.request.contextPath }/Controller?op=page&currentPageIndex="
+				+ index;
 	}
 </script>
 <body>
@@ -88,13 +108,13 @@
 						<th nowrap>操作</th>
 					</tr>
 					<c:choose>
-						<c:when test="${empty list}">
+						<c:when test="${empty page.list}">
 							<tr>
 								<td colspan="10" align="center">暂时没有数据</td>
 							</tr>
 						</c:when>
 						<c:otherwise>
-							<c:forEach items="${list }" var="c">
+							<c:forEach items="${page.list }" var="c">
 								<tr>
 									<td nowrap><input type="checkbox" name="ids"
 										value="${c.id }" /></td>
@@ -108,9 +128,11 @@
 									<td nowrap>${c.description }</td>
 									<td nowrap><a
 										href="${pageContext.request.contextPath }/Controller?op=toupdate&id=${c.id}">修改</a>&nbsp;&nbsp;&nbsp;
-										<a
-										href="${pageContext.request.contextPath }/Controller?op=delete&id=${c.id}">删除</a>
+										<%-- 	<a
+										href="${pageContext.request.contextPath }/Controller?op=delete&id=${c.id}">删除</a> --%>
 
+										<a
+										href="${pageContext.request.contextPath }/Controller?op=delete&id=${c.id}&currentPageIndex=${page.currentPageIndex}">删除</a>
 									</td>
 								</tr>
 							</c:forEach>
@@ -118,6 +140,29 @@
 					</c:choose>
 				</table>
 			</td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+			<td width="20%">第<font color=red>${page.currentPageIndex}页</font>/共<font
+				color=red>${page.pageCount }</font>页
+			</td>
+			<td width="55%"><a
+				href="${pageContext.request.contextPath }/servlet/Controller?op=page&currentPageIndex=${page.currentPageIndex - 1}">|&lt;</a>
+				<c:forEach begin="${startIndex }" end="${endIndex }" var="n">
+					<a
+						href="${pageContext.request.contextPath }/servlet/Controller?op=page&currentPageIndex=${n}">${page.currentPageIndex == n?"<font color =red>":"<font>"}${n }</font></a> &nbsp;&nbsp;
+        						 </c:forEach> <a
+				href="${pageContext.request.contextPath }/servlet/Controller?op=page&currentPageIndex=${page.currentPageIndex + 1}">&gt;|</a>
+			</td>
+			<td width="15%"><input type="text" size="5" id="pageindex">&nbsp;
+				<a href="javascript:jump()">跳转&nbsp;&nbsp;&nbsp;</a></td>
+			<td width="10%"><select name="currentPageIndex"
+				onchange="jump(this.value)">
+					<c:forEach begin="1" end="${page.pageCount }" var="n">
+						<option value="${n}" ${page.currentPageIndex == n?"selected":"" }>第${n }页</option>
+					</c:forEach>
+			</select></td>
 		</tr>
 	</table>
 </body>

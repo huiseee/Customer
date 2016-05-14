@@ -25,6 +25,7 @@ import com.yinlei.service.CustomerServiceImpl;
 import com.yinlei.utils.WebTools;
 import com.yinlei.utils.WebUtils;
 import com.yinlei.web.formbean.CustomerFormBean;
+import com.yinlei.web.formbean.Page;
 
 /**
  * Servlet implementation class Controller
@@ -56,8 +57,34 @@ public class Controller extends HttpServlet {
 			delete(request, response);
 		} else if ("deleteMore".equals(op)) {
 			deleteMore(request, response);
+		} else if ("page".equals(op)) {
+			pageList(request,response);
 		}
 
+	}
+
+	/**
+	 * 查询特定页面的数据
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 */
+	private void pageList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		// TODO Auto-generated method stub
+		//拿到页面传递的页面索引
+		String currentPageIndex = request.getParameter("currentPageIndex");
+		
+		//查询第一页的数据
+		//调用service端完成查询
+		Page page = cs.getPageList(Integer.parseInt(currentPageIndex), 10);
+		
+		//将page对象存入到session里面
+		request.getSession().setAttribute("page", page);
+		
+		//请求重定向到主页面
+		response.sendRedirect(request.getContextPath()+"/list.jsp");
+		
+		
 	}
 
 	/**

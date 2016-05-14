@@ -12,6 +12,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:forward page="/Controller?op=all"></jsp:forward>
+	<jsp:forward page="/Controller?op=page&currentPageIndex=1"></jsp:forward>
 </body>
 </html>

@@ -265,7 +265,7 @@ public class CustomerImpl implements CustomerDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			JdbcUtils.release(null, pstmt, conn);
+			JdbcUtils.release(rs, pstmt, conn);
 		}
 		return 0;
 	}
