@@ -106,6 +106,37 @@ public class Controller extends HttpServlet {
 				session.setAttribute("endIndex", pageCount);
 			session.setAttribute("endIndex", 5);
 		}
+		
+
+		if(pageIndex == (Integer)session.getAttribute("startIndex") && pageIndex != 1){
+			//说明点击的是最左边
+			session.setAttribute("startIndex", (Integer)session.getAttribute("startIndex") -1) ;
+			session.setAttribute("endIndex", (Integer)session.getAttribute("endIndex") -1) ;
+		}
+		if(pageIndex == (Integer)session.getAttribute("endIndex") && pageIndex != pageCount){
+			//说明点击的是最右边
+			session.setAttribute("startIndex", (Integer)session.getAttribute("startIndex") +1) ;
+			session.setAttribute("endIndex", (Integer)session.getAttribute("endIndex") +1) ;
+		}
+		
+		if(pageIndex < (Integer)session.getAttribute("startIndex") ){
+			session.setAttribute("startIndex", pageIndex  - 1) ;
+			session.setAttribute("endIndex", pageIndex + 3) ;
+			if((Integer)session.getAttribute("startIndex") == 1){
+				session.setAttribute("startIndex", 1) ;
+				session.setAttribute("endIndex", 5) ;
+			}
+		}
+		
+		if(pageIndex > (Integer)session.getAttribute("endIndex") ){
+			session.setAttribute("startIndex", pageIndex  - 3) ;
+			session.setAttribute("endIndex", pageIndex + 1) ;
+			if((Integer)session.getAttribute("endIndex") > pageCount){
+				session.setAttribute("startIndex", pageCount-4) ;
+				session.setAttribute("endIndex", pageCount) ;
+			}
+		}
+		
 
 		// 将page对象存入到session里面
 		request.getSession().setAttribute("page", page);
