@@ -3,7 +3,7 @@ package com.yinlei.web.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;

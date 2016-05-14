@@ -74,9 +74,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td nowrap>${c.type=="vip"?"贵宾":"普通用户" }</td>
 									<td nowrap>${c.description}</td>
 									<td nowrap><a
-										href="${pageContext.request.contextPath }/Customer/Controller?op=toupdate&id=${c.id}">修改</a>&nbsp;&nbsp;&nbsp;
+										href="${pageContext.request.contextPath }/Controller?op=toupdate&id=${c.id}">修改</a>&nbsp;&nbsp;&nbsp;
 										<a
-										href="${pageContext.request.contextPath }/Customer/Controller?op=delete&id=${c.id}">删除</a>
+										href="${pageContext.request.contextPath }/Controller?op=delete&id=${c.id}">删除</a>
 
 									</td>
 								</tr>

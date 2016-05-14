@@ -26,7 +26,7 @@
 <body>
 	<h1 align="center">添加客户信息</h1>
 	<hr>
-	<form action="${pageContext.request.contextPath }/Coustomer/Controller?op=add" method="post">
+	<form action="${pageContext.request.contextPath }/Controller?op=add" method="post">
 	<table id="t1" align="center">
 		<tr>
 			<td align="right" width = "40%">姓名:</td>

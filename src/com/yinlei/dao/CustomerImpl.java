@@ -15,14 +15,14 @@ import com.yinlei.bean.Customer;
 import com.yinlei.utils.JdbcUtils;
 
 public class CustomerImpl implements CustomerDao {
-	// 拿到连接对象
-	Connection conn = JdbcUtils.getConnection();;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
+	
+
 
 	@Override
 	public boolean add(Customer customer) {
-
+		// 拿到连接对象
+		Connection conn = JdbcUtils.getConnection();;
+		PreparedStatement pstmt = null;
 		int n = -1;
 		// 创建sql语句
 		String sql = "insert into customer (id,name,gender,birthday,cellphone,email,hobby,type,description) "
@@ -54,6 +54,9 @@ public class CustomerImpl implements CustomerDao {
 
 	@Override
 	public boolean update(Customer customer) {
+		// 拿到连接对象
+		Connection conn = JdbcUtils.getConnection();;
+		PreparedStatement pstmt = null;
 		int n = -1;
 		// 创建sql语句
 		String sql = "update customer set name=?,gender=?,birthday=?,cellphone=?,email=?,hobby=?,type=?,description=? where id = ?";
@@ -86,6 +89,9 @@ public class CustomerImpl implements CustomerDao {
 
 	@Override
 	public boolean delete(String id) {
+		// 拿到连接对象
+		Connection conn = JdbcUtils.getConnection();;
+		PreparedStatement pstmt = null;
 		int n = -1;
 		// 创建sql语句
 		String sql = "delete from customer where id = ?";
@@ -110,6 +116,10 @@ public class CustomerImpl implements CustomerDao {
 
 	@Override
 	public List<Customer> getAllCustomer() {
+		// 拿到连接对象
+		Connection conn = JdbcUtils.getConnection();;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
 		List<Customer> list = new ArrayList<>();
 		int n = -1;
@@ -147,6 +157,10 @@ public class CustomerImpl implements CustomerDao {
 
 	@Override
 	public Customer findCustomerById(String id) {
+		// 拿到连接对象
+		Connection conn = JdbcUtils.getConnection();;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		int n = -1;
 		// 创建sql语句
 		String sql = "select name,gender,birthday,cellphone,email,hobby,type,description from customer where id='" + id
