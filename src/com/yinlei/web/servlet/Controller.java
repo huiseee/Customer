@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
@@ -58,33 +59,60 @@ public class Controller extends HttpServlet {
 		} else if ("deleteMore".equals(op)) {
 			deleteMore(request, response);
 		} else if ("page".equals(op)) {
-			pageList(request,response);
+			pageList(request, response);
 		}
 
 	}
 
 	/**
 	 * 查询特定页面的数据
+	 * 
 	 * @param request
 	 * @param response
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	private void pageList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// TODO Auto-generated method stub
-		//拿到页面传递的页面索引
+		// 拿到页面传递的页面索引
 		String currentPageIndex = request.getParameter("currentPageIndex");
-		
-		//查询第一页的数据
-		//调用service端完成查询
+
+		// 给session中设置两个属性，记录循环的开始结束的值
+		HttpSession session = request.getSession();
+
+		// 查询第一页的数据
+		// 调用service端完成查询
 		Page page = cs.getPageList(Integer.parseInt(currentPageIndex), 10);
-		
-		//将page对象存入到session里面
+		// 查询一下总共需要多少页
+		int pageCount = cs.getPageCount(10);
+
+		// 判断页面索引的有效性
+		int pageIndex = Integer.parseInt(currentPageIndex);
+		if (pageIndex < 1)
+			pageIndex = 1;
+		if (pageIndex > pageCount)
+			pageIndex = pageCount;
+
+		// 根据传递的索引页来判断是否需要改变page对象的startIndex,endIndex
+		// 判断点击的是不是两头的页面
+		// 由于每次点击都会产生一个新的page对象，那对象中的startIndex和endIndex都会恢复到1,5,因此不能将数据记录到page对象
+		// 页面循环的变量应当记录到session中，因为session和每一个浏览器相关联
+		// 第一次访问的时候，默认值是1,5
+		Integer start = (Integer) session.getAttribute("startIndex");
+		Integer end = (Integer) session.getAttribute("endIndex");
+		if (start == null)
+			session.setAttribute("startIndex", 1);
+		if (end == null) {
+			if (pageCount < 5)
+				session.setAttribute("endIndex", pageCount);
+			session.setAttribute("endIndex", 5);
+		}
+
+		// 将page对象存入到session里面
 		request.getSession().setAttribute("page", page);
-		
-		//请求重定向到主页面
-		response.sendRedirect(request.getContextPath()+"/list.jsp");
-		
-		
+
+		// 请求重定向到主页面
+		response.sendRedirect(request.getContextPath() + "/list.jsp");
+
 	}
 
 	/**
@@ -108,7 +136,7 @@ public class Controller extends HttpServlet {
 		String[] strIds = ids.split(",");
 		for (int i = 0; i < strIds.length; i++) {
 			// 调用service层进行删除
-			//String id = URLDecoder.decode(strIds[i], "UTF-8");
+			// String id = URLDecoder.decode(strIds[i], "UTF-8");
 			System.out.println(strIds[i]);
 			cs.delete(strIds[i]);
 		}
@@ -130,7 +158,7 @@ public class Controller extends HttpServlet {
 
 		// 拿到页面传过来的id
 		String id = request.getParameter("id");
-		//id = URLDecoder.decode(id, "UTF-8");
+		// id = URLDecoder.decode(id, "UTF-8");
 		// 调用service层完成业务逻辑
 		System.out.println(id);
 		boolean flag = cs.delete(id);

@@ -32,6 +32,10 @@
 #t2 tr:hover {
 	background-color: ffccff;
 }
+
+a {
+	text-decoration: none;
+}
 </style>
 </head>
 <script type="text/javascript">
@@ -142,21 +146,27 @@
 			</td>
 		</tr>
 	</table>
-	<table>
+	<table align="center">
 		<tr>
 			<td width="20%">第<font color=red>${page.currentPageIndex}页</font>/共<font
-				color=red>${page.pageCount }</font>页
+				color=blue>${page.pageCount }</font>页
 			</td>
 			<td width="55%"><a
-				href="${pageContext.request.contextPath }/servlet/Controller?op=page&currentPageIndex=${page.currentPageIndex - 1}">|&lt;</a>
+				href="${pageContext.request.contextPath }/Controller?op=page&currentPageIndex=${page.currentPageIndex - 1}">|&lt;</a>
 				<c:forEach begin="${startIndex }" end="${endIndex }" var="n">
 					<a
-						href="${pageContext.request.contextPath }/servlet/Controller?op=page&currentPageIndex=${n}">${page.currentPageIndex == n?"<font color =red>":"<font>"}${n }</font></a> &nbsp;&nbsp;
+						href="${pageContext.request.contextPath }/Controller?op=page&currentPageIndex=${n}">${page.currentPageIndex == n?"<font color =red>":"<font>"}${n }</font></a> &nbsp;&nbsp;
         						 </c:forEach> <a
-				href="${pageContext.request.contextPath }/servlet/Controller?op=page&currentPageIndex=${page.currentPageIndex + 1}">&gt;|</a>
+				href="${pageContext.request.contextPath }/Controller?op=page&currentPageIndex=${page.currentPageIndex + 1}">&gt;|</a>
 			</td>
+			<%-- <td width = "55%">
+			<a href>|&lt;</a>
+			<c:forEach begin="${startIndex }" end="${endIndex }" var="n">
+					<a href="">${page.currentPageIndex == n?"<font color = red>":"<font color=blue>"}${n }</font></a>&nbsp;&nbsp;
+				</c:forEach>
+			</td> --%>
 			<td width="15%"><input type="text" size="5" id="pageindex">&nbsp;
-				<a href="javascript:jump()">跳转&nbsp;&nbsp;&nbsp;</a></td>
+				<a href="javascript:jump()">跳转&nbsp;&nbsp;</a></td>
 			<td width="10%"><select name="currentPageIndex"
 				onchange="jump(this.value)">
 					<c:forEach begin="1" end="${page.pageCount }" var="n">

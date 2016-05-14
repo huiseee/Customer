@@ -11,7 +11,7 @@ import com.yinlei.web.formbean.Page;
 import sun.net.www.content.text.plain;
 
 public class CustomerServiceImpl implements CustomerService {
-	
+
 	CustomerDao dao = new CustomerImpl();
 
 	@Override
@@ -46,13 +46,22 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public Page getPageList(int currentPageIndex, int count) {
-		//查询表中的记录数
+		// 查询表中的记录数
 		int totalCount = dao.getTotalCount();
 		Page page = new Page(totalCount, count);
-		//List<Customer> list = dao.getPageList(currentPageIndex, count);
-		//根据页面索引还有要显示的数据，查询出来要显示的数据   
+		page.setCurrentPageIndex(currentPageIndex);
+		// List<Customer> list = dao.getPageList(currentPageIndex, count);
+		// 根据页面索引还有要显示的数据，查询出来要显示的数据
 		page.setList(dao.getPageList(currentPageIndex, count));
 		return page;
+	}
+
+	
+	public int getPageCount(int count) {
+		// 查询表中的记录数据个数
+		int totalCount = dao.getTotalCount();
+
+		return (totalCount + count - 1) / count;
 	}
 
 }

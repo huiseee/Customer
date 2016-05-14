@@ -23,7 +23,7 @@ public class InsertDate {
 			c.setName("¹ù¾¸" + (i+1)) ;
 			c.setCellphone(i + 1331) ;
 			c.setBirthday(new java.sql.Date(new Date().getTime())) ;
-			c.setEmail("¹ù¾¸" + i + "@itcast.cn") ;
+			c.setEmail("¹ù¾¸" + i + "@i1245.cn") ;
 			c.setGender("1") ;
 			c.setHobby("³Ô·Å,Ë¯¾õ") ;
 			c.setType("vip") ;

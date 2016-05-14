@@ -57,5 +57,11 @@ public interface CustomerService {
 	 */
 	public Page getPageList(int currentPageIndex,int count);
 	
+	/**
+	 *  查询表中的记录数据个数
+	 * @param count
+	 * @return
+	 */
+	public int getPageCount(int count);
 
 }
