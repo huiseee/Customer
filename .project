@@ -33,4 +33,11 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>WebContent/WEB-INF/list1.jsp</name>
+			<type>1</type>
+			<location>G:/QQ下载/list1.jsp</location>
+		</link>
+	</linkedResources>
 </projectDescription>

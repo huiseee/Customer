@@ -17,7 +17,7 @@ public class JdbcUtils {
 
 	// 在构造方法之前调用
 	static {
-		ResourceBundle rb = ResourceBundle.getBundle("dbcfg");
+		ResourceBundle rb = ResourceBundle.getBundle("dbcof");
 		driverClass = rb.getString("driverClass");
 		url = rb.getString("url");
 		user = rb.getString("user");
