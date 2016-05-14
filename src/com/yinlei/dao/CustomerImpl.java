@@ -8,9 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.naming.java.javaURLContextFactory;
-
-import com.sun.org.apache.xml.internal.security.utils.RFC2253Parser;
 import com.yinlei.bean.Customer;
 import com.yinlei.utils.JdbcUtils;
 
@@ -163,7 +160,7 @@ public class CustomerImpl implements CustomerDao {
 		ResultSet rs = null;
 		int n = -1;
 		// 创建sql语句
-		String sql = "select name,gender,birthday,cellphone,email,hobby,type,description from customer where id='" + id
+		String sql = "select id ,name,gender,birthday,cellphone,email,hobby,type,description from customer where id='" + id
 				+ "'";
 
 		// 创建预处理对象

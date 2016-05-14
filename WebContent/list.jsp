@@ -11,6 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
  <base href="<%=basePath%>">
 <title>Insert title here</title>
+
 <style type="text/css">
 #t1 {
 	width: 900px;
@@ -32,6 +33,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 }
 </style>
 </head>
+<script type="text/javascript">
+	function checkAll(flag){
+		//拿到所有的记录
+		var ids = document.getElementsByName("ids");
+		//循环设置每一个单选框
+		for (var i = 0; i < ids.length; i++){
+			ids[i].checked = flag;
+		}
+		
+	}
+</script>
 <body>
 	<h1 align="center">客户信息</h1>
 	<hr>
@@ -44,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td>
 				<table width="100%" id="t2" >
 					<tr>
-						<th nowrap><input type="checkbox" id="all" />全选/全部选</th>
+						<th nowrap><input type="checkbox" id="all"  onclick="checkAll(this.checked)"/>全选/全部选</th>
 						<th nowrap>姓名</th>
 						<th nowrap>性别</th>
 						<th nowrap>生日</th>
@@ -64,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:otherwise>
 							<c:forEach items="${list }" var="c">
 								<tr>
-									<td nowrap><input type="checkbox" id="ids" /></td>
+									<td nowrap><input type="checkbox" name="ids" value="${c.id }"/></td>
 									<td nowrap>${c.name}</td>
 									<td nowrap>${c.gender=="1"?"男":"女" }<!-- ${c.gender=="1"?"男":"女" } --></td>
 									<td nowrap>${c.birthday}</td>
@@ -72,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td nowrap>${c.email}</td>
 									<td nowrap>${c.hobby}</td>
 									<td nowrap>${c.type=="vip"?"贵宾":"普通用户" }</td>
-									<td nowrap>${c.description}</td>
+									<td nowrap>${c.description }</td>
 									<td nowrap><a
 										href="${pageContext.request.contextPath }/Controller?op=toupdate&id=${c.id}">修改</a>&nbsp;&nbsp;&nbsp;
 										<a
