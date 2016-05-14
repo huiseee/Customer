@@ -39,5 +39,10 @@
 			<type>1</type>
 			<location>G:/QQ下载/list1.jsp</location>
 		</link>
+		<link>
+			<name>WebContent/imgs/id.png</name>
+			<type>1</type>
+			<location>C:/Users/wuyin/Desktop/id.png</location>
+		</link>
 	</linkedResources>
 </projectDescription>

@@ -3,6 +3,7 @@ package com.yinlei.web.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 import java.util.StringJoiner;
@@ -80,6 +81,8 @@ public class Controller extends HttpServlet {
 		String[] strIds = ids.split(",");
 		for (int i = 0; i < strIds.length; i++) {
 			// 调用service层进行删除
+			//String id = URLDecoder.decode(strIds[i], "UTF-8");
+			System.out.println(strIds[i]);
 			cs.delete(strIds[i]);
 		}
 
@@ -100,8 +103,9 @@ public class Controller extends HttpServlet {
 
 		// 拿到页面传过来的id
 		String id = request.getParameter("id");
-
+		//id = URLDecoder.decode(id, "UTF-8");
 		// 调用service层完成业务逻辑
+		System.out.println(id);
 		boolean flag = cs.delete(id);
 		if (!flag) {
 			// 说明删除不成功

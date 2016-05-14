@@ -137,7 +137,8 @@ public class CustomerImpl implements CustomerDao {
 				Customer c = new Customer();
 				try {
 					String id = URLEncoder.encode(rs.getString("id"), "utf-8");
-					c.setId(rs.getString("id"));
+					//服了自己啊，这个已经转码了，但是自己存储的时候存储的不是转过码，导致长时间在这个bug下困扰，要细心啊
+					c.setId(id);
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
