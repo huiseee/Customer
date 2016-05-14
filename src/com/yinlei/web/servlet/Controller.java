@@ -42,6 +42,7 @@ public class Controller extends HttpServlet {
 
 		// 拿到页面传递的数据
 		String op = request.getParameter("op");
+
 		if ("all".equals(op)) {
 			listAll(request, response);
 		} else if ("add".equals(op)) {
@@ -52,7 +53,38 @@ public class Controller extends HttpServlet {
 			update(request, response);
 		} else if ("delete".equals(op)) {
 			delete(request, response);
+		} else if ("deleteMore".equals(op)) {
+			deleteMore(request, response);
 		}
+
+	}
+
+	/**
+	 * 删除多条数据
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	private void deleteMore(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		// TODO Auto-generated method stub
+		// 拿到页面的数据
+		String ids = request.getParameter("ids");
+
+		// 由于ids后面多了一个逗号，记得要去掉
+		ids = ids.substring(0, ids.length() - 1);
+		// 拆分字符串
+		if (ids.length() == 0) {
+			return;
+		}
+		String[] strIds = ids.split(",");
+		for (int i = 0; i < strIds.length; i++) {
+			// 调用service层进行删除
+			cs.delete(strIds[i]);
+		}
+
+		// 转向主页面
+		listAll(request, response);
 
 	}
 
@@ -197,11 +229,10 @@ public class Controller extends HttpServlet {
 			// 先重新查询数据库 拿取数据后在转向
 			listAll(request, response);
 		} else {
-
+			// 添加失败
 			request.setAttribute("error", "添加失败");
 			request.getRequestDispatcher("/add.jsp").forward(request, response);
 		}
-
 
 	}
 

@@ -1,15 +1,16 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <!-- http://blog.csdn.net/jasper_success/article/details/6693434 这个地方的错误处理-->
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
- <base href="<%=basePath%>">
+<base href="<%=basePath%>">
 <title>Insert title here</title>
 
 <style type="text/css">
@@ -34,14 +35,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </style>
 </head>
 <script type="text/javascript">
-	function checkAll(flag){
+	function checkAll(flag) {
 		//拿到所有的记录
 		var ids = document.getElementsByName("ids");
 		//循环设置每一个单选框
-		for (var i = 0; i < ids.length; i++){
+		for (var i = 0; i < ids.length; i++) {
 			ids[i].checked = flag;
 		}
-		
+
+	}
+
+	function deleteMore() {
+		//拿到所有的记录的复选框
+		var ids = document.getElementsByName("ids");
+		//循环每一个复选框是否选中，构建id字符串
+		var s = "";
+		//循环设置每一个单选框
+		for (var i = 0; i < ids.length; i++) {
+			if (ids[i].checked) {
+				//拿到此复选框的value
+				s += ids[i].value + ",";
+			}
+		}
+		//alert(s);
+		//数据传递到服务器端进行删除
+		window.location = "${pageContext.request.contextPath }/Controller?op=deleteMore&ids="
+				+ s;
 	}
 </script>
 <body>
@@ -49,14 +68,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<hr>
 	<table id="t1" align="center">
 		<tr>
-			<td><a href="${pageContext.request.contextPath }/add.jsp">添加</a>&nbsp;&nbsp;&nbsp; <a href="">删除</a>&nbsp;&nbsp;&nbsp;
-			</td>
+			<td><a href="${pageContext.request.contextPath }/add.jsp">添加</a>&nbsp;&nbsp;&nbsp;
+				<a href="Javascript:deleteMore()">删除</a>&nbsp;&nbsp;&nbsp;</td>
 		</tr>
 		<tr>
 			<td>
-				<table width="100%" id="t2" >
+				<table width="100%" id="t2">
 					<tr>
-						<th nowrap><input type="checkbox" id="all"  onclick="checkAll(this.checked)"/>全选/全部选</th>
+						<th nowrap><input type="checkbox" id="all"
+							onclick="checkAll(this.checked)" />全选/全部选</th>
 						<th nowrap>姓名</th>
 						<th nowrap>性别</th>
 						<th nowrap>生日</th>
@@ -76,13 +96,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:otherwise>
 							<c:forEach items="${list }" var="c">
 								<tr>
-									<td nowrap><input type="checkbox" name="ids" value="${c.id }"/></td>
-									<td nowrap>${c.name}</td>
+									<td nowrap><input type="checkbox" name="ids"
+										value="${c.id }" /></td>
+									<td nowrap>${c.name }</td>
 									<td nowrap>${c.gender=="1"?"男":"女" }<!-- ${c.gender=="1"?"男":"女" } --></td>
-									<td nowrap>${c.birthday}</td>
-									<td nowrap>${c.cellphone}</td>
-									<td nowrap>${c.email}</td>
-									<td nowrap>${c.hobby}</td>
+									<td nowrap>${c.birthday }</td>
+									<td nowrap>${c.cellphone }</td>
+									<td nowrap>${c.email }</td>
+									<td nowrap>${c.hobby }</td>
 									<td nowrap>${c.type=="vip"?"贵宾":"普通用户" }</td>
 									<td nowrap>${c.description }</td>
 									<td nowrap><a

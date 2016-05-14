@@ -1,5 +1,7 @@
 package com.yinlei.dao;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -12,13 +14,12 @@ import com.yinlei.bean.Customer;
 import com.yinlei.utils.JdbcUtils;
 
 public class CustomerImpl implements CustomerDao {
-	
-
 
 	@Override
 	public boolean add(Customer customer) {
 		// 拿到连接对象
-		Connection conn = JdbcUtils.getConnection();;
+		Connection conn = JdbcUtils.getConnection();
+		;
 		PreparedStatement pstmt = null;
 		int n = -1;
 		// 创建sql语句
@@ -52,7 +53,8 @@ public class CustomerImpl implements CustomerDao {
 	@Override
 	public boolean update(Customer customer) {
 		// 拿到连接对象
-		Connection conn = JdbcUtils.getConnection();;
+		Connection conn = JdbcUtils.getConnection();
+		;
 		PreparedStatement pstmt = null;
 		int n = -1;
 		// 创建sql语句
@@ -87,7 +89,8 @@ public class CustomerImpl implements CustomerDao {
 	@Override
 	public boolean delete(String id) {
 		// 拿到连接对象
-		Connection conn = JdbcUtils.getConnection();;
+		Connection conn = JdbcUtils.getConnection();
+		;
 		PreparedStatement pstmt = null;
 		int n = -1;
 		// 创建sql语句
@@ -114,7 +117,8 @@ public class CustomerImpl implements CustomerDao {
 	@Override
 	public List<Customer> getAllCustomer() {
 		// 拿到连接对象
-		Connection conn = JdbcUtils.getConnection();;
+		Connection conn = JdbcUtils.getConnection();
+		;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
@@ -131,7 +135,12 @@ public class CustomerImpl implements CustomerDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Customer c = new Customer();
-				c.setId(rs.getString("id"));
+				try {
+					String id = URLEncoder.encode(rs.getString("id"), "utf-8");
+					c.setId(rs.getString("id"));
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
 				c.setName(rs.getString("name"));
 				c.setGender(rs.getString("gender"));
 				c.setBirthday(rs.getDate("birthday"));
@@ -155,13 +164,14 @@ public class CustomerImpl implements CustomerDao {
 	@Override
 	public Customer findCustomerById(String id) {
 		// 拿到连接对象
-		Connection conn = JdbcUtils.getConnection();;
+		Connection conn = JdbcUtils.getConnection();
+		;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int n = -1;
 		// 创建sql语句
-		String sql = "select id ,name,gender,birthday,cellphone,email,hobby,type,description from customer where id='" + id
-				+ "'";
+		String sql = "select id ,name,gender,birthday,cellphone,email,hobby,type,description from customer where id='"
+				+ id + "'";
 
 		// 创建预处理对象
 		try {
