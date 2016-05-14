@@ -6,6 +6,9 @@ import com.sun.org.apache.bcel.internal.generic.DALOAD;
 import com.yinlei.bean.Customer;
 import com.yinlei.dao.CustomerDao;
 import com.yinlei.dao.CustomerImpl;
+import com.yinlei.web.formbean.Page;
+
+import sun.net.www.content.text.plain;
 
 public class CustomerServiceImpl implements CustomerService {
 	
@@ -39,6 +42,17 @@ public class CustomerServiceImpl implements CustomerService {
 	public Customer findCustomerById(String id) {
 		// TODO Auto-generated method stub
 		return dao.findCustomerById(id);
+	}
+
+	@Override
+	public Page getPageList(int currentPageIndex, int count) {
+		//查询表中的记录数
+		int totalCount = dao.getTotalCount();
+		Page page = new Page(totalCount, count);
+		//List<Customer> list = dao.getPageList(currentPageIndex, count);
+		//根据页面索引还有要显示的数据，查询出来要显示的数据   
+		page.setList(dao.getPageList(currentPageIndex, count));
+		return page;
 	}
 
 }

@@ -21,7 +21,7 @@ public class InsertDate {
 			Customer c = new Customer() ;
 			c.setId(WebTools.createNewId());
 			c.setName("¹ù¾¸" + (i+1)) ;
-			c.setCellphone(i + "1") ;
+			c.setCellphone(i + 1331) ;
 			c.setBirthday(new java.sql.Date(new Date().getTime())) ;
 			c.setEmail("¹ù¾¸" + i + "@itcast.cn") ;
 			c.setGender("1") ;

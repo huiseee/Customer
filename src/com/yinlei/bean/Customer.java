@@ -23,7 +23,7 @@ public class Customer {
 	
 	private Date birthday;
 	
-	private String cellphone;
+	private int cellphone;
 	
 	private String email;
 	
@@ -65,11 +65,11 @@ public class Customer {
 		this.birthday = birthday;
 	}
 
-	public String getCellphone() {
+	public int getCellphone() {
 		return cellphone;
 	}
 
-	public void setCellphone(String cellphone) {
+	public void setCellphone(int cellphone) {
 		this.cellphone = cellphone;
 	}
 
@@ -109,7 +109,7 @@ public class Customer {
 		super();
 	}
 
-	public Customer(String id, String name, String gender, Date birthday, String cellphone, String email, String hobby,
+	public Customer(String id, String name, String gender, Date birthday, int cellphone, String email, String hobby,
 			String type, String description) {
 		super();
 		this.id = id;

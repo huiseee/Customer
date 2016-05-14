@@ -3,6 +3,7 @@ package com.yinlei.service;
 import java.util.List;
 
 import com.yinlei.bean.Customer;
+import com.yinlei.web.formbean.Page;
 
 public interface CustomerService {
 	/**
@@ -36,6 +37,7 @@ public interface CustomerService {
 	 * 获取所有的客户
 	 * <li>返回所有的客户集合
 	 */
+	@Deprecated
 	public List<Customer> getAllCustomer();
 
 	/**
@@ -46,5 +48,14 @@ public interface CustomerService {
 	 * @return 成功返回此客户，否则返回null
 	 */
 	public Customer findCustomerById(String id);
+	
+	/**
+	 * 根据页面索引查询本页面要显示的数据
+	 * @param currentPageIndex   当前页的索引
+	 * @param count    要显示的具体数据的个数
+	 * @return
+	 */
+	public Page getPageList(int currentPageIndex,int count);
+	
 
 }

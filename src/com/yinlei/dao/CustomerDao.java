@@ -36,6 +36,7 @@ public interface CustomerDao {
 	 * 获取所有的客户
 	 * <li>返回所有的客户集合
 	 */
+	@Deprecated
 	public List<Customer> getAllCustomer();
 
 	/**
@@ -46,5 +47,19 @@ public interface CustomerDao {
 	 * @return 成功返回此客户，否则返回null
 	 */
 	public Customer findCustomerById(String id);
+
+	/**
+	 * 根据页面的索引和显示的数量查询数据
+	 * @param currentPageIndex    当前页索引
+	 * @param count    显示的数量
+	 * @return
+	 */
+	public List<Customer> getPageList(int currentPageIndex,int count);
+	
+	/**
+	 * 获取数据库中的数据的个数
+	 * @return
+	 */
+	public int getTotalCount();
 
 }
